@@ -19,18 +19,18 @@ ITEM_PIPELINES = {
     'pixiv_crawl.pipelines.PixivMetaPipeline': 10
   }
 
-LOG_LEVEL = "ERROR"
+LOG_LEVEL = "INFO"
 
 DOWNLOAD_DELAY = 1
 COOKIES_ENABLED = True
 # COOKIES_DEBUG = True
-IMAGES_STORE = '/your/path/to/save/imgs/'	#用于保存图片的地址，最后需要加上/
+IMAGES_STORE = '/your/path/to/save/pixiv/image/'	#用于保存图片的地址，最后需要加上/
 
 #########USER INFO
 PIXIV_USER_NAME = 'username'	#在此设置登录用户名
 PIXIV_USER_PASS = 'password'	#在此设置登录密码
 #########HOST INFO
-START_DATE = datetime.date(2015,9,1)    #在此设置开始时间
+START_DATE = datetime.date(2015,9,10)    #在此设置开始时间
 #########PXIIV_MODE
 __PIXIV_MODES__ = [
     'daily',        #0 每日热榜

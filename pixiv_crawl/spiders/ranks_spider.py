@@ -4,7 +4,7 @@ import scrapy
 import json
 import datetime
 from pixiv_crawl.items import PixivCrawlItem
-
+from scrapy.exceptions import *
 class PixivSpider(scrapy.Spider):
     name = "pixiv_daily_ranking"
     allowed_domains = ['pixiv.net']
@@ -12,6 +12,8 @@ class PixivSpider(scrapy.Spider):
     """开始抓取，首先通过登录页进行登录，并保存和跟踪COOKIE"""
     def start_requests(self):
         setting = self.settings
+        if not setting['PIXIV_USER_NAME'] or not setting['PIXIV_USER_PASS']:
+            raise CloseSpider('username or password error!!!')
         return [
             scrapy.FormRequest(url = 'https://www.secure.pixiv.net/login.php',
                                formdata = {
@@ -23,8 +25,12 @@ class PixivSpider(scrapy.Spider):
                                callback = self.logged_in)
                 ]
 
-    """登录成功后，生成当天的首个LIST页"""
+    """登录完成后操作，
+    判断是否成功，成功则生成当天的首个LIST页，用户名错误则关闭爬虫
+    """
     def logged_in(self,response):
+        if response.url == 'https://www.secure.pixiv.net/login.php':
+            raise CloseSpider('username or password error!!!')
         yield scrapy.Request(self.generate_list_url(self.settings['START_DATE']),callback=self.parse)
 
     """
