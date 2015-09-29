@@ -1,0 +1,15 @@
+#忽略idea配置文件
+/.idea
+*.pyc
+
+.idea/.name
+
+.idea/vcs.xml
+
+.idea/pixiv_crawl.iml
+
+.idea/modules.xml
+
+.idea/misc.xml
+
+.idea/vcs.xml
